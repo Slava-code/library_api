@@ -1,7 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, func, UniqueConstraint
-from sqlalchemy.orm import relationship, declarative_base
-
-Base = declarative_base()
+from sqlalchemy.orm import relationship
+from app.database import Base
 
 class User(Base):
     __tablename__ = "users"
@@ -38,14 +37,15 @@ class BorrowedBook(Base):
     __tablename__ = "borrowed_books"
 
     id = Column(Integer, primary_key=True, index=True)
-    book_id = Column(Integer, ForeignKey("books.id"), nullable=False)
-    reader_id = Column(Integer, ForeignKey("readers.id"), nullable=False)
+    book_id = Column(Integer, ForeignKey("books.id"), nullable=False, Index = True)
+    reader_id = Column(Integer, ForeignKey("readers.id"), nullable=False, Index = True)
     borrow_date = Column(DateTime(timezone=True), server_default=func.now())
     return_date = Column(DateTime(timezone=True), nullable=True)
 
     book = relationship("Book", back_populates="borrows")
     reader = relationship("Reader", back_populates="borrows")
 
+    # Enforce "return_date" uq so that the same reader can borrow the same book multiple times
     __table_args__ = (
         UniqueConstraint('book_id', 'reader_id', 'return_date', name='uq_borrow_unique_active'),
     )
