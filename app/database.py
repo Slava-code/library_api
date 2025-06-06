@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Example: postgresql://user:password@localhost:5432/library_db
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/library_db")
 
 engine = create_engine(DATABASE_URL)
