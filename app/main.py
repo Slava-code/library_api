@@ -1,7 +1,9 @@
 from fastapi import FastAPI
-from app.routes import auth
+from app.routes import auth, books, readers
 
 app = FastAPI()
 
-# Include routes
-app.include_router(auth.router, prefix="/auth", tags=["Authentication"])
+# Include routers
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(books.router, tags=["books"])
+app.include_router(readers.router, tags=["readers"])
