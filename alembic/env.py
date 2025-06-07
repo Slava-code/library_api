@@ -9,7 +9,7 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from app.database import Base
-from app.models import models
+from app.models.models import User, Book, Reader, BorrowedBook
 from app.core.config import settings
 
 # this is the Alembic Config object, which provides

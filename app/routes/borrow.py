@@ -5,7 +5,7 @@ from datetime import datetime
 from app.database import get_db
 from app.models.models import Book, Reader, BorrowedBook
 from app.schemas.schemas import BorrowRequest, ReturnRequest, BorrowedBookRead
-from app.dependencies import get_current_user
+from app.dependencies.dependencies import get_current_user
 
 router = APIRouter()
 
