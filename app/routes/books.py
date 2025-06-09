@@ -18,7 +18,7 @@ def create_book(book: BookCreate, db: Session = Depends(get_db), user=Depends(ge
     return db_book
 
 @router.get("", response_model=List[BookRead])
-def list_books(db: Session = Depends(get_db), user=Depends(get_current_user)):
+def list_books(db: Session = Depends(get_db)):
     return db.query(Book).all()
 
 @router.get("/{book_id}", response_model=BookRead)
@@ -34,7 +34,7 @@ def update_book(book_id: int, book_update: BookCreate, db: Session = Depends(get
     if not book:
         raise HTTPException(status_code=404, detail="Book not found")
 
-    for key, value in book_update.dict().items():
+    for key, value in book_update.model_dump().items():
         setattr(book, key, value)
     db.commit()
     db.refresh(book)

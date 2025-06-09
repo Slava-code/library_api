@@ -40,7 +40,7 @@ def borrow_book(request: BorrowRequest, db: Session = Depends(get_db), user=Depe
     db.refresh(borrowed)
     return borrowed
 
-@router.get("borrow/{reader_id}", response_model=List[BorrowedBookRead])
+@router.get("/borrow/{reader_id}", response_model=List[BorrowedBookRead])
 def get_active_borrows_by_reader(reader_id: int, db: Session = Depends(get_db), user=Depends(get_current_user)):
     borrows = db.query(BorrowedBook).filter(
         BorrowedBook.reader_id == reader_id,
