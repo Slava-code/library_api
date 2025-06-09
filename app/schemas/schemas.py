@@ -20,13 +20,14 @@ class BookBase(BaseModel):
     publication_year: Optional[int] = None
     isbn: Optional[str] = None
     copies: int = Field(default=1, ge=0)
+    description: Optional[str] = None
 
 class BookCreate(BookBase):
     pass
 
 class BookRead(BookBase):
     model_config = ConfigDict(from_attributes=True)
-
+    
     id: int
 
 # ==== Readers ==== #

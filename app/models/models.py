@@ -19,6 +19,8 @@ class Book(Base):
     publication_year = Column(Integer)
     isbn = Column(String, unique=True)
     copies = Column(Integer, default=1)
+    # second alembic migration addition
+    description = Column(String, nullable=True)
 
     borrows = relationship("BorrowedBook", back_populates="book")
 
